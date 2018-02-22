@@ -1,0 +1,82 @@
+*********************************************************************************************************************
+Prerequisite : Working Kubernetes cluster in your local machine
+Works in Linux and Mac os 
+*********************************************************************************************************************
+This folder contains two script files:
+Build.sh ——> Build the Guestbook application and launches to your browser
+Cleanup.sh —> for cleanup and deleting the created servers
+**********************************************************************************************************************
+Open a terminal and run 
+
+sh build.sh
+********************************OUTPUT********************************************************************************
+git checked out exists
+replicationcontroller "redis-master" created
+NAME           DESIRED   CURRENT   READY     AGE
+redis-master   1         1         0         <invalid>
+NAME                 READY     STATUS              RESTARTS   AGE
+redis-master-ct96x   0/1       ContainerCreating   0          <invalid>
+redis-slave-5rzh6    1/1       Terminating         0          24s
+redis-slave-t45dv    1/1       Terminating         0          24s
+service "redis-master" created
+NAME           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+kubernetes     ClusterIP   10.96.0.1       <none>        443/TCP    1d
+redis-master   ClusterIP   10.108.47.252   <none>        6379/TCP   <invalid>
+replicationcontroller "redis-slave" created
+NAME           DESIRED   CURRENT   READY     AGE
+redis-master   1         1         0         <invalid>
+redis-slave    2         2         0         <invalid>
+Warning: redis 4.0.8 is already installed
+/Users/arti.seshadri/Library/LaunchAgents/homebrew.mxcl.redis.plist -> /usr/local/opt/redis/homebrew.mxcl.redis.plist
+Service `redis` already started, use `brew services restart redis` to restart.
+PONG
+NAME                 READY     STATUS        RESTARTS   AGE
+redis-master-ct96x   1/1       Running       0          <invalid>
+redis-slave-4sxtd    1/1       Running       0          <invalid>
+redis-slave-5rzh6    1/1       Terminating   0          27s
+redis-slave-mpbpv    1/1       Running       0          <invalid>
+redis-slave-t45dv    1/1       Terminating   0          27s
+service "redis-slave" created
+NAME           TYPE        CLUSTER-IP      EXTERNAL-IP   PORT(S)    AGE
+kubernetes     ClusterIP   10.96.0.1       <none>        443/TCP    1d
+redis-master   ClusterIP   10.108.47.252   <none>        6379/TCP   <invalid>
+redis-slave    ClusterIP   10.100.210.20   <none>        6379/TCP   <invalid>
+replicationcontroller "guestbook" created
+NAME           DESIRED   CURRENT   READY     AGE
+guestbook      3         3         0         <invalid>
+redis-master   1         1         1         <invalid>
+redis-slave    2         2         2         <invalid>
+NAME                 READY     STATUS              RESTARTS   AGE
+guestbook-fvq5s      0/1       Pending             0          <invalid>
+guestbook-t4b65      0/1       Pending             0          <invalid>
+guestbook-wthpn      0/1       ContainerCreating   0          <invalid>
+redis-master-ct96x   1/1       Running             0          <invalid>
+redis-slave-4sxtd    1/1       Running             0          <invalid>
+redis-slave-5rzh6    1/1       Terminating         0          27s
+redis-slave-mpbpv    1/1       Running             0          <invalid>
+redis-slave-t45dv    1/1       Terminating         0          27s
+service "guestbook" created
+NAME           TYPE           CLUSTER-IP      EXTERNAL-IP   PORT(S)          AGE
+guestbook      LoadBalancer   10.102.1.154    <pending>     3000:30589/TCP   <invalid>
+kubernetes     ClusterIP      10.96.0.1       <none>        443/TCP          1d
+redis-master   ClusterIP      10.108.47.252   <none>        6379/TCP         <invalid>
+redis-slave    ClusterIP      10.100.210.20   <none>        6379/TCP         <invalid>
+******************************************************************************************************************************
+
+
+http://localhost:3000 (Only if you have no default browser setup in your machine and the script fails to launch)
+
+Refresh the browser if it is still waiting for Database connection
+
+Once done, run the following in the terminal
+
+sh cleanup.sh
+****************OUTPUT********************************************************************************************************
+replicationcontroller "guestbook" deleted
+service "guestbook" deleted
+replicationcontroller "redis-master" deleted
+service "redis-master" deleted
+replicationcontroller "redis-slave" deleted
+service "redis-slave" deleted
+*****************************************************************************************************************************
+
