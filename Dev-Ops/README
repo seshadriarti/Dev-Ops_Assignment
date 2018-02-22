@@ -6,7 +6,11 @@ This folder contains two script files:
 Build.sh ——> Build the Guestbook application and launches to your browser
 Cleanup.sh —> for cleanup and deleting the created servers
 **********************************************************************************************************************
-Open a terminal and run 
+Open a terminal 
+
+go to the path where build.sh such that when you run ls you should be able to see build.sh and cleanup.sh 
+
+and run 
 
 sh build.sh
 ********************************OUTPUT********************************************************************************
